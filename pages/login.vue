@@ -1,11 +1,15 @@
 <template>
   <div class="w-full h-screen flex items-center justify-center">
-    <form class="w-full md:w-1/3 bg-white rounded-lg">
+    <form
+      class="w-full md:w-1/3 bg-white rounded-lg"
+      @submit.prevent="handleSubmit"
+    >
       <h2 class="text-3xl text-center text-gray-700 mb-4">Login Form</h2>
       <div class="px-12 pb-10">
         <div class="w-full flex flex-col gap-5">
           <div class="flex items-center">
             <input
+              v-model="userName"
               type="text"
               placeholder="Username"
               class="
@@ -23,6 +27,7 @@
           <div class="w-full">
             <div class="flex items-center">
               <input
+                v-model="password"
                 type="password"
                 placeholder="Password"
                 class="
@@ -58,12 +63,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    return {}
+    const defaultValues = { userName: '', password: '' }
+    const formState =
+      reactive<{ userName: string; password: string }>(defaultValues)
+
+    const handleSubmit = () => {
+      Object.assign(formState, defaultValues)
+    }
+
+    return {
+      ...toRefs(formState),
+      handleSubmit,
+    }
   },
 })
 </script>
