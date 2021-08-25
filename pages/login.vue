@@ -63,23 +63,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  reactive,
+  toRefs,
+  useContext,
+} from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    const defaultValues = { userName: '', password: '' }
+    const { $repository } = useContext();
+    const defaultValues = { userName: '', password: '' };
     const formState =
-      reactive<{ userName: string; password: string }>(defaultValues)
+      reactive<{ userName: string; password: string }>(defaultValues);
 
-    const handleSubmit = () => {
-      Object.assign(formState, defaultValues)
-    }
+    const handleSubmit = async () => {
+      await $repository.auth
+        .login({
+          username: formState.userName,
+          password: formState.password,
+        })
+        .then((res) => alert(`ログイン成功 ${res.accessToken}`))
+        .catch(() => alert('ログイン失敗'));
+
+      Object.assign(formState, defaultValues);
+    };
 
     return {
       ...toRefs(formState),
       handleSubmit,
-    }
+    };
   },
-})
+});
 </script>

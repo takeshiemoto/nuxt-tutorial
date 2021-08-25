@@ -1,4 +1,9 @@
-export default {
+import { NuxtConfig } from '@nuxt/types';
+import { NuxtAxiosInstance } from '@nuxtjs/axios';
+import { Auth } from '@nuxtjs/auth-next';
+import { Repository } from '~/api/types';
+
+const config: NuxtConfig = {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -6,25 +11,21 @@ export default {
   head: {
     title: 'nuxt-tutorial',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  plugins: ['@/plugins/repository'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,15 +38,44 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+
+  auth: {},
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true,
+    prefix: '/api',
+  },
+
+  proxy: {
+    '/api/': {
+      target: 'http://localhost:3333',
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
+  build: {},
+};
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $auth: Auth;
+    $axios: NuxtAxiosInstance;
+    $repository: {
+      students: string;
+    };
   }
 }
+
+declare module '@nuxt/types' {
+  interface NuxtAppOptions {
+    $repository: Repository;
+  }
+
+  interface Context {
+    $repository: Repository;
+  }
+}
+
+export default config;
