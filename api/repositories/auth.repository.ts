@@ -2,11 +2,11 @@ import { NuxtAxiosInstance } from '@nuxtjs/axios';
 
 export const authRepository: ($axios: NuxtAxiosInstance) => {
   login: (payload: {
-    userName: string;
+    username: string;
     password: string;
   }) => Promise<{ accessToken: string }>;
 } = ($axios: NuxtAxiosInstance) => ({
-  login: (payload: { userName: string; password: string }) =>
+  login: (payload: { username: string; password: string }) =>
     $axios.$post('/auth/login', { ...payload }),
 });
 
