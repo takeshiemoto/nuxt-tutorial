@@ -73,19 +73,20 @@ import {
 export default defineComponent({
   name: 'Login',
   setup() {
-    const { $repository } = useContext();
+    const { $auth } = useContext();
     const defaultValues = { userName: '', password: '' };
     const formState =
       reactive<{ userName: string; password: string }>(defaultValues);
 
     const handleSubmit = async () => {
-      await $repository.auth
-        .login({
-          username: formState.userName,
-          password: formState.password,
+      await $auth
+        .loginWith('local', {
+          data: {
+            username: formState.userName,
+            password: formState.password,
+          },
         })
-        .then((res) => alert(`ログイン成功 ${res.accessToken}`))
-        .catch(() => alert('ログイン失敗'));
+        .catch(() => window.alert('ログイン失敗'));
 
       Object.assign(formState, defaultValues);
     };

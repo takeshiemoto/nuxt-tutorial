@@ -41,7 +41,22 @@ const config: NuxtConfig = {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
-  auth: {},
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'accessToken',
+        },
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'POST',
+          },
+          user: false,
+        },
+      },
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -57,6 +72,10 @@ const config: NuxtConfig = {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  router: {
+    middleware: ['auth'],
+  },
 };
 
 declare module 'vue/types/vue' {
