@@ -1,6 +1,7 @@
 import { Context } from '@nuxt/types';
-import { studentRepository } from '~/api/repositories/student.repository';
+
 import { authRepository } from '~/api/repositories/auth.repository';
+import { studentRepository } from '~/api/repositories/student.repository';
 
 export const createRepository = ({ $axios }: Context) => {
   return {

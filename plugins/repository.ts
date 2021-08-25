@@ -1,4 +1,5 @@
 import { Plugin } from '@nuxt/types';
+
 import { createRepository } from '~/api/create-repository';
 
 const repository: Plugin = (context, inject) => {

@@ -1,6 +1,7 @@
 import { NuxtConfig } from '@nuxt/types';
-import { NuxtAxiosInstance } from '@nuxtjs/axios';
 import { Auth } from '@nuxtjs/auth-next';
+import { NuxtAxiosInstance } from '@nuxtjs/axios';
+
 import { Repository } from '~/api/types';
 
 const config: NuxtConfig = {
