@@ -42,6 +42,10 @@ const config: NuxtConfig = {
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   auth: {
+    localStorage: false,
+    redirect: {
+      logout: '/login',
+    },
     strategies: {
       local: {
         token: {
@@ -52,6 +56,7 @@ const config: NuxtConfig = {
             url: '/auth/login',
             method: 'POST',
           },
+          logout: false,
           user: false,
         },
       },

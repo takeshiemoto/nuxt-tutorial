@@ -20,7 +20,7 @@
                 px-3
                 py-2
                 text-gray-700
-                focus:outline-none focus:border-green-600
+                focus:outline-none focus:border-gray-600
               "
             />
           </div>
@@ -38,7 +38,7 @@
                   px-3
                   py-2
                   text-gray-700
-                  focus:outline-none focus:border-green-600
+                  focus:outline-none focus:border-gray-600
                 "
               />
             </div>
@@ -48,9 +48,9 @@
             class="
               w-full
               py-2
-              rounded-full
-              bg-green-600
-              text-gray-100
+              rounded
+              bg-gray-700
+              text-white
               focus:outline-none
             "
           >
