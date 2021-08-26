@@ -9,10 +9,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="border px-4 py-2">xxx</td>
-          <td class="border px-4 py-2">John</td>
-          <td class="border px-4 py-2">yyyzzz</td>
+        <tr v-for="student in students" :key="student.id">
+          <td class="border px-4 py-2">{{ student.id }}</td>
+          <td class="border px-4 py-2">{{ student.name }}</td>
+          <td class="border px-4 py-2">{{ student.teacher }}</td>
         </tr>
       </tbody>
     </table>
@@ -20,10 +20,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
+
+type Props = {
+  students: { id: string; name: string; teacher: string }[];
+};
 
 export default defineComponent({
   name: 'StudentList',
+  props: {
+    students: {
+      type: Array as PropType<Props['students']>,
+      required: true,
+    },
+  },
   setup() {
     return {};
   },

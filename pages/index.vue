@@ -1,7 +1,7 @@
 <template>
   <div>
     <Nav />
-    <StudentList />
+    <StudentList :students="students" />
   </div>
 </template>
 
@@ -10,11 +10,18 @@ import { defineComponent } from '@nuxtjs/composition-api';
 
 import Nav from '~/components/Nav.vue';
 import StudentList from '~/components/StudentList.vue';
+import { useStudents } from '~/composables/useStudents';
 
 export default defineComponent({
   components: { StudentList, Nav },
   setup() {
-    return {};
+    const { students, fetchStudents } = useStudents();
+
+    fetchStudents();
+
+    return {
+      students,
+    };
   },
 });
 </script>

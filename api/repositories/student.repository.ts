@@ -4,7 +4,7 @@ type FindAllResponse = {
   id: string;
   name: string;
   teacher: string;
-}[];
+};
 
 export const studentRepository: ($axios: NuxtAxiosInstance) => {
   findById: (studentId: string) => Promise<any>;
