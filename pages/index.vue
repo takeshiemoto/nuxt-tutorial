@@ -1,5 +1,8 @@
 <template>
-  <StudentList :students="students" />
+  <div>
+    <StudentList :students="students" />
+    <NuxtLink to="/student/add">Add Student</NuxtLink>
+  </div>
 </template>
 
 <script lang="ts">
